@@ -51,6 +51,16 @@ async function move() {
       }
     }
 
+    try {
+      await stat(destinationPath);
+
+      console.error(
+        'Destination file already exists. File will not be overwritten.',
+      );
+
+      return;
+    } catch (err) {}
+
     await rename(sourcePath, destinationPath);
     console.log('File moved successfully.');
   } catch (error) {
